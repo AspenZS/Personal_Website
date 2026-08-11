@@ -1,520 +1,341 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Jay Henderson | IT Infrastructure & Automation</title>
-  <meta name="description" content="Jay Henderson is an IT infrastructure, support, and automation specialist based in the Minneapolis-Saint Paul area. Explore hands-on work with Proxmox, Windows, Linux, networking, monitoring, PowerShell, and Python.">
-  <meta name="theme-color" content="#090c14">
-  <meta name="color-scheme" content="dark">
-  <meta property="og:title" content="Jay Henderson | IT Infrastructure & Automation">
-  <meta property="og:description" content="Reliable systems, practical automation, and hands-on technical support.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://jthenderson00.github.io/Personal_Website/">
-  <link rel="canonical" href="https://jthenderson00.github.io/Personal_Website/">
-  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
-  <link rel="icon" type="image/x-icon" href="./favicon.ico">
-
-  <style>
-    :root {
-      --bg: #090c14;
-      --surface: #101521;
-      --surface-2: #151c2b;
-      --border: #273149;
-      --text: #f5f7fb;
-      --muted: #a9b3c7;
-      --accent: #7dd3fc;
-      --accent-2: #c4b5fd;
-      --success: #86efac;
-      --shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
-      --radius: 22px;
-      --max: 1160px;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      min-width: 320px;
-      background:
-        radial-gradient(circle at 14% 0%, rgba(125, 211, 252, 0.12), transparent 30rem),
-        radial-gradient(circle at 88% 8%, rgba(196, 181, 253, 0.12), transparent 30rem),
-        var(--bg);
-      color: var(--text);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.6;
-    }
-
-    a { color: inherit; }
-    img, svg { display: block; }
-    button, a { -webkit-tap-highlight-color: transparent; }
-    :focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
-
-    .skip-link {
-      position: fixed;
-      left: 1rem;
-      top: -5rem;
-      z-index: 1000;
-      padding: 0.8rem 1rem;
-      border-radius: 0.7rem;
-      background: var(--text);
-      color: var(--bg);
-      font-weight: 800;
-      transition: top 0.2s ease;
-    }
-    .skip-link:focus { top: 1rem; }
-
-    .container { width: min(calc(100% - 2rem), var(--max)); margin-inline: auto; }
-    .section { padding: 6rem 0; }
-    .section-tight { padding: 4rem 0; }
-    .eyebrow {
-      margin: 0 0 0.75rem;
-      color: var(--accent);
-      font-size: 0.82rem;
-      font-weight: 850;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-    }
-    h1, h2, h3, p { margin-top: 0; }
-    h1, h2, h3 { line-height: 1.12; letter-spacing: -0.035em; }
-    h1 { max-width: 900px; margin-bottom: 1.4rem; font-size: clamp(3rem, 8vw, 6.8rem); }
-    h2 { margin-bottom: 1rem; font-size: clamp(2.1rem, 5vw, 3.6rem); }
-    h3 { margin-bottom: 0.65rem; font-size: 1.35rem; }
-    .lede { max-width: 760px; color: var(--muted); font-size: clamp(1.12rem, 2.4vw, 1.35rem); }
-    .muted { color: var(--muted); }
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      border-bottom: 1px solid rgba(39, 49, 73, 0.75);
-      background: rgba(9, 12, 20, 0.82);
-      backdrop-filter: blur(18px);
-    }
-    .nav-wrap { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
-    .brand { display: inline-flex; align-items: center; gap: 0.75rem; text-decoration: none; font-weight: 900; letter-spacing: -0.025em; }
-    .brand-mark {
-      width: 36px;
-      height: 36px;
-      display: grid;
-      place-items: center;
-      border: 1px solid rgba(125, 211, 252, 0.5);
-      border-radius: 11px;
-      background: linear-gradient(145deg, rgba(125, 211, 252, 0.2), rgba(196, 181, 253, 0.2));
-      color: var(--accent);
-      font-size: 0.82rem;
-    }
-    .nav-links { display: flex; align-items: center; gap: 1.4rem; }
-    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.94rem; font-weight: 720; }
-    .nav-links a:hover { color: var(--text); }
-    .nav-toggle {
-      display: none;
-      border: 1px solid var(--border);
-      border-radius: 0.75rem;
-      background: var(--surface);
-      color: var(--text);
-      padding: 0.65rem 0.8rem;
-      font: inherit;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .hero { padding: 7.5rem 0 5.5rem; }
-    .hero-copy { max-width: 980px; }
-    .hero h1 span {
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 0.85rem; margin: 2.1rem 0 2rem; }
-    .button {
-      display: inline-flex;
-      min-height: 48px;
-      align-items: center;
-      justify-content: center;
-      gap: 0.55rem;
-      padding: 0.8rem 1.1rem;
-      border: 1px solid var(--border);
-      border-radius: 0.9rem;
-      background: var(--surface);
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 820;
-      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
-    }
-    .button:hover { transform: translateY(-2px); border-color: rgba(125, 211, 252, 0.7); }
-    .button-primary { border-color: transparent; background: linear-gradient(135deg, #38bdf8, #8b5cf6); color: #080b12; }
-    .status-line { display: flex; flex-wrap: wrap; align-items: center; gap: 0.65rem 1.2rem; color: var(--muted); font-size: 0.95rem; }
-    .status-item { display: inline-flex; align-items: center; gap: 0.5rem; }
-    .status-dot { width: 9px; height: 9px; border-radius: 999px; background: var(--success); box-shadow: 0 0 18px rgba(134, 239, 172, 0.7); }
-
-    .stats, .grid-2, .grid-3, .project-grid { display: grid; gap: 1rem; }
-    .stats { grid-template-columns: repeat(4, 1fr); margin-top: 4rem; }
-    .grid-2 { grid-template-columns: repeat(2, 1fr); }
-    .grid-3 { grid-template-columns: repeat(3, 1fr); }
-    .project-grid { grid-template-columns: repeat(2, 1fr); }
-
-    .card {
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(21, 28, 43, 0.92), rgba(16, 21, 33, 0.92));
-      box-shadow: var(--shadow);
-    }
-    .stat-card { padding: 1.3rem; }
-    .stat-card strong { display: block; margin-bottom: 0.25rem; font-size: 1.05rem; }
-    .stat-card span { color: var(--muted); font-size: 0.9rem; }
-    .content-card { padding: clamp(1.35rem, 3vw, 2rem); }
-
-    .section-heading { max-width: 760px; margin-bottom: 2.2rem; }
-    .feature-list { display: grid; gap: 0.8rem; padding: 0; margin: 1.4rem 0 0; list-style: none; }
-    .feature-list li { position: relative; padding-left: 1.65rem; color: var(--muted); }
-    .feature-list li::before { content: ""; position: absolute; left: 0; top: 0.68rem; width: 8px; height: 8px; border-radius: 999px; background: var(--accent); }
-
-    .project-card { display: flex; min-height: 100%; flex-direction: column; padding: clamp(1.4rem, 3vw, 2rem); }
-    .project-card p { color: var(--muted); }
-    .project-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
-    .project-number { color: var(--accent); font-weight: 900; font-size: 0.85rem; letter-spacing: 0.12em; }
-    .tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; padding: 0; margin: auto 0 0; list-style: none; }
-    .tag {
-      padding: 0.38rem 0.65rem;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      background: rgba(9, 12, 20, 0.5);
-      color: #c8d2e5;
-      font-size: 0.78rem;
-      font-weight: 720;
-    }
-
-    .stack-wrap { display: flex; flex-wrap: wrap; gap: 0.65rem; }
-    .stack-pill {
-      padding: 0.6rem 0.8rem;
-      border: 1px solid var(--border);
-      border-radius: 0.75rem;
-      background: var(--surface-2);
-      color: #d7deeb;
-      font-weight: 720;
-      font-size: 0.9rem;
-    }
-
-    .timeline { position: relative; display: grid; gap: 1rem; }
-    .timeline-item { padding: 1.4rem 1.4rem 1.4rem 1.6rem; border-left: 3px solid var(--accent); border-radius: 0 var(--radius) var(--radius) 0; background: var(--surface); }
-    .timeline-item p:last-child { margin-bottom: 0; }
-
-    .contact-card { padding: clamp(1.6rem, 5vw, 3.3rem); text-align: center; }
-    .contact-card .hero-actions { justify-content: center; }
-
-    footer { padding: 2.5rem 0; border-top: 1px solid var(--border); color: var(--muted); }
-    .footer-wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
-    .footer-wrap a { text-decoration: none; }
-
-    @media (max-width: 900px) {
-      .stats { grid-template-columns: repeat(2, 1fr); }
-      .grid-3 { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 720px) {
-      .section { padding: 4.5rem 0; }
-      .hero { padding: 5rem 0 4rem; }
-      .nav-toggle { display: inline-flex; }
-      .nav-links {
-        position: absolute;
-        top: calc(100% + 1px);
-        left: 0;
-        right: 0;
-        display: none;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0;
-        padding: 0.7rem 1rem 1rem;
-        border-bottom: 1px solid var(--border);
-        background: rgba(9, 12, 20, 0.98);
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#071018">
+    <meta name="color-scheme" content="dark">
+    <meta
+      name="description"
+      content="Jay Henderson builds reliable infrastructure, practical automation, and recoverable production systems under the Zephyre Systems maker identity."
+    >
+    <meta property="og:title" content="Jay Henderson | Infrastructure, Automation & Reliability">
+    <meta
+      property="og:description"
+      content="Reliable systems, verifiable changes, and recovery plans that actually work."
+    >
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aspenzs.github.io/Personal_Website/">
+    <meta property="og:image" content="https://aspenzs.github.io/Personal_Website/social-card.svg">
+    <meta property="og:image:alt" content="Zephyre Systems — reliable systems, verifiable changes, recoverable operations">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Jay Henderson | Infrastructure, Automation & Reliability">
+    <meta
+      name="twitter:description"
+      content="Reliable systems, verifiable changes, and recovery plans that actually work."
+    >
+    <meta name="twitter:image" content="https://aspenzs.github.io/Personal_Website/social-card.svg">
+    <link rel="canonical" href="https://aspenzs.github.io/Personal_Website/">
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+    <link rel="manifest" href="./manifest.webmanifest">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Jay Henderson | Infrastructure, Automation &amp; Reliability</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Jay Henderson",
+        "alternateName": "Aspen // ZS",
+        "url": "https://aspenzs.github.io/Personal_Website/",
+        "sameAs": ["https://github.com/AspenZS"],
+        "jobTitle": "Infrastructure and Automation Specialist",
+        "knowsAbout": [
+          "Proxmox VE",
+          "Windows and Linux administration",
+          "PowerShell and Python automation",
+          "Docker",
+          "Monitoring and recovery",
+          "Production release engineering"
+        ]
       }
-      .nav-links.open { display: flex; }
-      .nav-links a { padding: 0.8rem 0.5rem; }
-      .grid-2, .project-grid { grid-template-columns: 1fr; }
-      .footer-wrap { align-items: flex-start; flex-direction: column; }
-    }
+    </script>
+  </head>
+  <body id="top">
+    <a class="skip-link" href="#main">Skip to content</a>
 
-    @media (max-width: 480px) {
-      .container { width: min(calc(100% - 1.25rem), var(--max)); }
-      .stats { grid-template-columns: 1fr; }
-      .hero-actions .button { width: 100%; }
-    }
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a class="brand" href="#top" aria-label="Jay Henderson home">
+          <span class="brand-mark" aria-hidden="true">ZS</span>
+          <span class="brand-copy">
+            <strong>ZEPHYRE <span>SYSTEMS</span></strong>
+            <small>Aspen // ZS</small>
+          </span>
+        </a>
 
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
-    }
-  </style>
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="primary-navigation"
+        >
+          <span aria-hidden="true"></span>
+          <span class="nav-toggle-label">Menu</span>
+        </button>
 
-  <header class="site-header">
-    <div class="container nav-wrap">
-      <a class="brand" href="#top" aria-label="Jay Henderson home">
-        <span class="brand-mark" aria-hidden="true">JH</span>
-        <span>Jay Henderson</span>
-      </a>
+        <nav id="primary-navigation" class="nav-links" aria-label="Primary navigation">
+          <a href="#about">About</a>
+          <a href="#work">Case studies</a>
+          <a href="#toolkit">Toolkit</a>
+          <a href="#experience">Experience</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
 
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation">Menu</button>
-
-      <nav class="nav-links" id="site-navigation" aria-label="Primary navigation">
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#skills">Skills</a>
-        <a href="#experience">Experience</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
-  </header>
-
-  <main id="main">
-    <section class="hero" id="top">
-      <div class="container">
-        <div class="hero-copy">
-          <p class="eyebrow">IT infrastructure · technical support · automation</p>
-          <h1>I make complicated systems <span>reliable, understandable, and easier to run.</span></h1>
-          <p class="lede">I’m Jay Henderson, a hands-on IT professional focused on Windows and Linux support, virtualization, networking, monitoring, and practical automation. I like finding the actual root cause, documenting the fix, and leaving the environment better than I found it.</p>
-
-          <div class="hero-actions">
-            <a class="button button-primary" href="#projects">View selected projects</a>
-            <a class="button" href="mailto:justyn_henderson@outlook.com">Email me</a>
-            <a class="button" href="https://github.com/jthenderson00" target="_blank" rel="noreferrer">GitHub profile</a>
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">Infrastructure · Automation · Reliability</p>
+            <h1 id="hero-title">
+              Reliable systems.<br>
+              <span>Verifiable changes.</span><br>
+              Recoverable operations.
+            </h1>
+            <p class="lede">
+              I’m Jay Henderson—<strong>Aspen // ZS</strong> in the systems I build. I work across
+              Windows, Linux, virtualization, networking, monitoring, and production automation to
+              make complicated environments easier to understand and safer to operate.
+            </p>
+            <div class="hero-actions" role="group" aria-label="Primary actions">
+              <a class="button button-primary" href="#work">View case studies</a>
+              <a class="button" href="mailto:justyn_henderson@outlook.com">Email me</a>
+              <a class="button" href="https://github.com/AspenZS" target="_blank" rel="noreferrer">GitHub profile</a>
+            </div>
+            <div class="availability">
+              <span class="status-dot" aria-hidden="true"></span>
+              <span>Open to infrastructure, systems, support, and automation roles</span>
+              <span class="location">Minneapolis–Saint Paul · Remote</span>
+            </div>
           </div>
 
-          <div class="status-line" aria-label="Current status">
-            <span class="status-item"><span class="status-dot" aria-hidden="true"></span>Open to IT support, infrastructure, and automation roles</span>
-            <span class="status-item">Minneapolis–Saint Paul, Minnesota</span>
+          <aside class="operator-panel" aria-label="Operator profile">
+            <div class="panel-heading">
+              <span>operator.profile</span>
+              <span class="panel-state">ONLINE</span>
+            </div>
+            <dl class="system-list">
+              <div><dt>professional</dt><dd>Jay Henderson</dd></div>
+              <div><dt>maker</dt><dd class="accent-magenta">Aspen // ZS</dd></div>
+              <div><dt>practice</dt><dd>evidence first</dd></div>
+              <div><dt>changes</dt><dd>reversible</dd></div>
+              <div><dt>recovery</dt><dd>verified</dd></div>
+            </dl>
+            <div class="boot-checks">
+              <span><b>identity::zephyre</b><em>[ OK ]</em></span>
+              <span><b>safety::rollback</b><em>[ OK ]</em></span>
+              <span><b>evidence::validation</b><em>[ OK ]</em></span>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="proof-strip" aria-label="Core capabilities">
+        <div class="container proof-grid">
+          <div><strong>Windows + Linux</strong><span>Support through infrastructure</span></div>
+          <div><strong>Proxmox + Docker</strong><span>Guests, storage, services, recovery</span></div>
+          <div><strong>PowerShell + Python</strong><span>Repeatable, guarded automation</span></div>
+          <div><strong>Monitoring + Backups</strong><span>Visibility with tested recovery</span></div>
+        </div>
+      </section>
+
+      <section class="section" id="about" aria-labelledby="about-title">
+        <div class="container split-heading">
+          <div>
+            <p class="eyebrow">How I work</p>
+            <h2 id="about-title">Make the real state visible.</h2>
+          </div>
+          <div class="section-intro">
+            <p>
+              My strongest work lives where user support, systems administration, deployment, and
+              automation overlap. I follow a problem across layers instead of stopping at the first
+              plausible explanation.
+            </p>
+          </div>
+        </div>
+        <div class="container principle-grid">
+          <article class="principle-card">
+            <span class="card-index">01</span>
+            <h3>Diagnose from evidence</h3>
+            <p>Inspect symptoms, logs, dependencies, and recent changes before reaching for a dramatic fix.</p>
+          </article>
+          <article class="principle-card">
+            <span class="card-index">02</span>
+            <h3>Automate with guardrails</h3>
+            <p>Turn understood work into scripts and workflows with explicit checks, failures, and safe boundaries.</p>
+          </article>
+          <article class="principle-card">
+            <span class="card-index">03</span>
+            <h3>Prove the recovery path</h3>
+            <p>Backups matter when their checksums, retention, restore steps, and rollback points are verified.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section-contrast" id="work" aria-labelledby="work-title">
+        <div class="container section-heading">
+          <p class="eyebrow">Selected case studies</p>
+          <h2 id="work-title">Operational work with defensible outcomes.</h2>
+          <p>Real systems, real constraints, and validation that goes beyond “it started once.”</p>
+        </div>
+
+        <div class="container case-list">
+          <article class="case-study">
+            <div class="case-number">01</div>
+            <div class="case-summary">
+              <span class="tag">Infrastructure operations</span>
+              <h3>Multi-node Proxmox homelab and recovery platform</h3>
+              <p>
+                Operate five voting Proxmox nodes plus a deliberately zero-vote lab node across mixed
+                hardware, local and shared storage, containerized services, monitoring, UPS control,
+                and workload-specific GPU resources.
+              </p>
+            </div>
+            <div class="case-evidence">
+              <h4>Verified work</h4>
+              <ul>
+                <li>ZFS mirror and NFS/SMB storage planning</li>
+                <li>Snapshot-aware VM backup and restore testing</li>
+                <li>NUT-managed UPS telemetry and shutdown design</li>
+                <li>Guest migrations with preserved rollback copies</li>
+              </ul>
+              <p class="result"><span>Outcome</span> Quorate, observable infrastructure with recoverable workload placement.</p>
+            </div>
+          </article>
+
+          <article class="case-study">
+            <div class="case-number">02</div>
+            <div class="case-summary">
+              <span class="tag">Production release engineering</span>
+              <h3>Canonical release and runtime supervision</h3>
+              <p>
+                Converted a multi-service community platform into a versioned, reproducible release
+                with exact image provenance, fail-closed health, cog readiness, off-host application
+                backups, and a human-readable operational supervisor.
+              </p>
+            </div>
+            <div class="case-evidence">
+              <h4>Verified work</h4>
+              <ul>
+                <li>Exact commit, tree, image, and OCI provenance</li>
+                <li>Dynamic service readiness instead of hopeful sleeps</li>
+                <li>Read-only containers and private-workflow logging</li>
+                <li>Documented cutover, backup, and rollback gates</li>
+              </ul>
+              <p class="result"><span>Outcome</span> A production command that reports what is actually ready—and why.</p>
+            </div>
+          </article>
+
+          <article class="case-study">
+            <div class="case-number">03</div>
+            <div class="case-summary">
+              <span class="tag">Application and security systems</span>
+              <h3>Event operations and defensive incident tooling</h3>
+              <p>
+                Build private React, API, database, and Discord workflows for attendance, event
+                lineups, verification tickets, transcript integrity, role-aware administration, and
+                explainable security review.
+              </p>
+            </div>
+            <div class="case-evidence">
+              <h4>Verified work</h4>
+              <ul>
+                <li>Tenant-aware authorization and privacy boundaries</li>
+                <li>PostgreSQL migrations and disposable restore tests</li>
+                <li>Immutable transcript revisions and safe metadata</li>
+                <li>Shadow-first security signals and reversible actions</li>
+              </ul>
+              <p class="result"><span>Outcome</span> Operational tools that preserve context without trading away privacy.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="toolkit" aria-labelledby="toolkit-title">
+        <div class="container split-heading">
+          <div>
+            <p class="eyebrow">Technical toolkit</p>
+            <h2 id="toolkit-title">Broad enough to follow the problem.</h2>
+          </div>
+          <div class="section-intro">
+            <p>Tools are useful when they support a clear operational decision, not when they merely fill a logo wall.</p>
           </div>
         </div>
 
-        <div class="stats" aria-label="Core capabilities">
-          <div class="card stat-card"><strong>Windows + Linux</strong><span>Desktop, server, identity, troubleshooting</span></div>
-          <div class="card stat-card"><strong>Proxmox + Containers</strong><span>VMs, storage, services, passthrough</span></div>
-          <div class="card stat-card"><strong>PowerShell + Python</strong><span>Repeatable maintenance and automation</span></div>
-          <div class="card stat-card"><strong>Monitoring + Recovery</strong><span>Visibility, alerts, backups, validation</span></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="about">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow">How I work</p>
-          <h2>Useful technology beats impressive-looking technology.</h2>
-          <p class="lede">My strongest work lives where support, systems administration, and automation overlap. I’m comfortable moving from a user-facing issue to logs, networking, storage, virtualization, or code when that is what the problem actually requires.</p>
-        </div>
-
-        <div class="grid-3">
-          <article class="card content-card">
-            <h3>Troubleshoot from evidence</h3>
-            <p class="muted">I inspect symptoms, logs, dependencies, and recent changes before reaching for a dramatic fix. The goal is a defensible root cause, not a lucky reboot.</p>
+        <div class="container toolkit-grid">
+          <article>
+            <h3>Systems</h3>
+            <p>Windows 10/11 · Windows Server · Ubuntu · Debian · Proxmox VE · Docker · ZFS · SMB/NFS · Microsoft 365</p>
           </article>
-          <article class="card content-card">
-            <h3>Automate the boring parts</h3>
-            <p class="muted">Once a process is understood, I turn repeat work into safe scripts, checks, reports, or scheduled workflows with clear failure behavior.</p>
+          <article>
+            <h3>Networking &amp; operations</h3>
+            <p>DNS · DHCP · VPN · Tailscale · Cloudflare Tunnel · Prometheus · Grafana · Uptime Kuma · NUT/UPS</p>
           </article>
-          <article class="card content-card">
-            <h3>Document the real state</h3>
-            <p class="muted">Good documentation should let another technician understand what exists, what changed, how it was validated, and how to recover.</p>
+          <article>
+            <h3>Automation &amp; development</h3>
+            <p>PowerShell · Python · Bash · TypeScript · JavaScript · Node.js · React · FastAPI · REST APIs · SQL</p>
+          </article>
+          <article>
+            <h3>Delivery &amp; recovery</h3>
+            <p>Git/GitHub · CI validation · release provenance · backup verification · migration planning · technical handoff</p>
           </article>
         </div>
-      </div>
-    </section>
 
-    <section class="section" id="projects">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow">Selected work</p>
-          <h2>Projects built around real operational problems.</h2>
-          <p class="lede">These are hands-on environments and tools I actively operate, maintain, or developed to solve recurring technical work.</p>
+        <div class="container secondary-work">
+          <article><span>Platform operations</span><h3>Immich service separation</h3><p>Staged application and machine-learning workloads across validated VM boundaries.</p></article>
+          <article><span>Windows automation</span><h3>Shop maintenance toolkit</h3><p>Guarded diagnostic and repair stages with technician-ready evidence and failure handling.</p></article>
+          <article><span>Local compute</span><h3>AI runtime control</h3><p>Model switching, hardware-state validation, and practical fallback behavior across local inference tools.</p></article>
+          <article><span>Integration</span><h3>FiveM light synchronization</h3><p>Compatibility-focused nearby vehicle phase alignment without replacing the existing controller.</p></article>
         </div>
+      </section>
 
-        <div class="project-grid">
-          <article class="card project-card">
-            <div class="project-top"><span class="project-number">01</span><span class="tag">Infrastructure</span></div>
-            <h3>Three-node Proxmox homelab</h3>
-            <p>Operate a mixed-hardware Proxmox cluster hosting Windows and Linux workloads, Docker services, DNS filtering, monitoring, uptime checks, storage shares, and GPU-backed virtual machines.</p>
-            <ul class="feature-list">
-              <li>ZFS-backed storage and VM resource planning</li>
-              <li>Prometheus, Grafana, node exporters, and Uptime Kuma</li>
-              <li>APC UPS monitoring and coordinated shutdown through NUT</li>
-              <li>PCIe GPU passthrough for isolated workloads</li>
-            </ul>
-            <ul class="tag-list" aria-label="Technologies"><li class="tag">Proxmox VE</li><li class="tag">ZFS</li><li class="tag">Docker</li><li class="tag">NUT</li><li class="tag">Grafana</li></ul>
-          </article>
-
-          <article class="card project-card">
-            <div class="project-top"><span class="project-number">02</span><span class="tag">Automation</span></div>
-            <h3>Shop Maintenance Toolkit</h3>
-            <p>Built a production-focused Windows maintenance toolkit that runs gated diagnostic and repair stages, keeps user-facing output understandable, and produces clean evidence for technicians.</p>
-            <ul class="feature-list">
-              <li>PowerShell-based maintenance and validation workflow</li>
-              <li>Interactive console behavior separated from saved reports</li>
-              <li>Defensive handling for failed stages and missing prerequisites</li>
-              <li>Repeatable output suitable for support handoff and audit</li>
-            </ul>
-            <ul class="tag-list" aria-label="Technologies"><li class="tag">PowerShell</li><li class="tag">Windows</li><li class="tag">Diagnostics</li><li class="tag">Reporting</li></ul>
-          </article>
-
-          <article class="card project-card">
-            <div class="project-top"><span class="project-number">03</span><span class="tag">Platform operations</span></div>
-            <h3>Immich migration and service separation</h3>
-            <p>Planned and managed a staged Immich infrastructure migration while preserving validated services and separating machine-learning workloads into a dedicated VM-backed endpoint.</p>
-            <ul class="feature-list">
-              <li>State-aware migration with explicit checkpoints</li>
-              <li>Docker service networking and ordered ML endpoints</li>
-              <li>Large photo export and storage planning</li>
-              <li>Validation-first changes without rebuilding working infrastructure</li>
-            </ul>
-            <ul class="tag-list" aria-label="Technologies"><li class="tag">Immich</li><li class="tag">Docker Compose</li><li class="tag">Linux</li><li class="tag">Virtualization</li></ul>
-          </article>
-
-          <article class="card project-card">
-            <div class="project-top"><span class="project-number">04</span><span class="tag">Application development</span></div>
-            <h3>Community operations and Discord automation</h3>
-            <p>Developed bot and dashboard workflows for event operations, attendance, role-aware administration, applications, analytics, and staff coordination.</p>
-            <ul class="feature-list">
-              <li>Python and Node.js automation with third-party APIs</li>
-              <li>SQLite-backed operational data</li>
-              <li>Role and permission modeling for staff workflows</li>
-              <li>Careful state migration and continuity across revisions</li>
-            </ul>
-            <ul class="tag-list" aria-label="Technologies"><li class="tag">Python</li><li class="tag">Node.js</li><li class="tag">SQLite</li><li class="tag">Discord APIs</li></ul>
-          </article>
-
-          <article class="card project-card">
-            <div class="project-top"><span class="project-number">05</span><span class="tag">FiveM</span></div>
-            <h3>Emergency vehicle light-phase synchronization</h3>
-            <p>Turned a lighting synchronization idea into a working FiveM resource that aligns emergency vehicle light phases for nearby vehicles without replacing the existing lighting controller.</p>
-            <ul class="feature-list">
-              <li>Manual nearby synchronization command</li>
-              <li>Compatibility-focused integration with an existing resource</li>
-              <li>Designed for operational clarity rather than visual hacks</li>
-            </ul>
-            <ul class="tag-list" aria-label="Technologies"><li class="tag">Lua</li><li class="tag">FiveM</li><li class="tag">Event handling</li><li class="tag">Integration</li></ul>
-          </article>
-
-          <article class="card project-card">
-            <div class="project-top"><span class="project-number">06</span><span class="tag">Local AI</span></div>
-            <h3>Local model serving and runtime control</h3>
-            <p>Built a local AI stack on AMD graphics with model switching, a browser-based chat frontend, prompt overlays, and validation that the active runtime reports the correct model and hardware state.</p>
-            <ul class="feature-list">
-              <li>KoboldCpp and SillyTavern integration</li>
-              <li>AMD Vulkan model acceleration</li>
-              <li>Per-model runtime overlays and fallback behavior</li>
-              <li>Bidirectional validation after model switching</li>
-            </ul>
-            <ul class="tag-list" aria-label="Technologies"><li class="tag">Linux</li><li class="tag">Vulkan</li><li class="tag">GGUF</li><li class="tag">Local inference</li></ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="skills">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow">Technical toolkit</p>
-          <h2>Broad enough to follow the problem across layers.</h2>
-        </div>
-
-        <div class="grid-2">
-          <article class="card content-card">
-            <h3>Systems and infrastructure</h3>
-            <div class="stack-wrap">
-              <span class="stack-pill">Windows 10/11</span><span class="stack-pill">Windows Server</span><span class="stack-pill">Ubuntu</span><span class="stack-pill">Debian</span><span class="stack-pill">Proxmox VE</span><span class="stack-pill">VMware</span><span class="stack-pill">Docker</span><span class="stack-pill">ZFS</span><span class="stack-pill">SMB / NFS</span><span class="stack-pill">Active Directory</span><span class="stack-pill">Microsoft 365</span>
-            </div>
-          </article>
-          <article class="card content-card">
-            <h3>Networking and operations</h3>
-            <div class="stack-wrap">
-              <span class="stack-pill">DNS</span><span class="stack-pill">DHCP</span><span class="stack-pill">VPN</span><span class="stack-pill">VLAN concepts</span><span class="stack-pill">Prometheus</span><span class="stack-pill">Grafana</span><span class="stack-pill">Uptime Kuma</span><span class="stack-pill">NUT / UPS</span><span class="stack-pill">Backup validation</span><span class="stack-pill">Remote support</span>
-            </div>
-          </article>
-          <article class="card content-card">
-            <h3>Scripting and development</h3>
-            <div class="stack-wrap">
-              <span class="stack-pill">PowerShell</span><span class="stack-pill">Python</span><span class="stack-pill">Bash</span><span class="stack-pill">JavaScript</span><span class="stack-pill">Node.js</span><span class="stack-pill">Lua</span><span class="stack-pill">HTML / CSS</span><span class="stack-pill">REST APIs</span><span class="stack-pill">SQLite</span><span class="stack-pill">Git / GitHub</span>
-            </div>
-          </article>
-          <article class="card content-card">
-            <h3>Support and delivery</h3>
-            <div class="stack-wrap">
-              <span class="stack-pill">Hardware diagnostics</span><span class="stack-pill">Imaging</span><span class="stack-pill">Endpoint troubleshooting</span><span class="stack-pill">Ticket documentation</span><span class="stack-pill">User communication</span><span class="stack-pill">Root-cause analysis</span><span class="stack-pill">Change validation</span><span class="stack-pill">Technical handoff</span>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="experience">
-      <div class="container">
-        <div class="section-heading">
+      <section class="section section-contrast" id="experience" aria-labelledby="experience-title">
+        <div class="container section-heading">
           <p class="eyebrow">Professional background</p>
-          <h2>Technical depth with real customer-facing experience.</h2>
-          <p class="lede">My background combines hands-on IT support, infrastructure work, field troubleshooting, sales, and direct customer communication. That mix helps me explain technical problems clearly without losing the technical details.</p>
+          <h2 id="experience-title">Technical depth with customer-facing judgment.</h2>
+          <p>Support experience keeps the infrastructure work grounded in the person who is actually blocked.</p>
         </div>
-
-        <div class="timeline">
-          <article class="timeline-item">
-            <h3>IT Technician · EasyITGuys</h3>
-            <p class="muted">January 2024 – March 2025</p>
-            <p>Supported Windows, Linux, and macOS environments; handled hardware and software troubleshooting, Microsoft 365, networking, imaging, remote support, and client-facing technical work.</p>
+        <div class="container timeline">
+          <article>
+            <time>2024 — 2025</time>
+            <div><h3>IT Technician · EasyITGuys</h3><p>Windows, Linux, and macOS support; hardware and software troubleshooting; Microsoft 365; networking; imaging; remote support; and client-facing technical delivery.</p></div>
           </article>
-          <article class="timeline-item">
-            <h3>Field Sales Representative · TruGreen</h3>
-            <p class="muted">March 2025 – March 2026</p>
-            <p>Built stronger communication, prioritization, route planning, and customer-facing problem-solving skills while working independently in the field.</p>
+          <article>
+            <time>2025 — 2026</time>
+            <div><h3>Field Sales Representative · TruGreen</h3><p>Independent field work that strengthened communication, prioritization, route planning, and practical customer problem-solving.</p></div>
           </article>
-          <article class="timeline-item">
-            <h3>Independent infrastructure and automation projects</h3>
-            <p class="muted">Ongoing</p>
-            <p>Design, operate, document, and improve homelab infrastructure and practical software projects that mirror real support, operations, deployment, monitoring, and recovery work.</p>
+          <article>
+            <time>Ongoing</time>
+            <div><h3>Independent infrastructure and automation</h3><p>Design, operate, validate, and document production-like systems spanning support, deployment, monitoring, security, and recovery.</p></div>
           </article>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section" id="contact">
-      <div class="container">
-        <div class="card contact-card">
+      <section class="section contact-section" id="contact" aria-labelledby="contact-title">
+        <div class="container contact-card">
           <p class="eyebrow">Let’s talk</p>
-          <h2>Need someone who can support the user and still follow the issue into the infrastructure?</h2>
-          <p class="lede" style="margin-inline:auto">I’m open to IT support, infrastructure, systems administration, deployment, and automation opportunities in the Minneapolis–Saint Paul area or remote.</p>
-          <div class="hero-actions">
+          <h2 id="contact-title">Need someone who can support the user and still follow the issue into the infrastructure?</h2>
+          <p>I’m open to infrastructure, systems administration, technical support, deployment, and automation opportunities in the Minneapolis–Saint Paul area or remote.</p>
+          <div class="contact-actions">
             <a class="button button-primary" href="mailto:justyn_henderson@outlook.com">justyn_henderson@outlook.com</a>
-            <a class="button" href="https://github.com/jthenderson00" target="_blank" rel="noreferrer">github.com/jthenderson00</a>
+            <a class="button" href="https://github.com/AspenZS" target="_blank" rel="noreferrer">github.com/AspenZS</a>
           </div>
         </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>
+          <strong>ZEPHYRE SYSTEMS</strong>
+          <span>software and systems by Aspen // ZS</span>
+        </div>
+        <span>© <span id="year">2026</span> Jay Henderson</span>
+        <a href="#top">Back to top</a>
       </div>
-    </section>
-  </main>
+    </footer>
 
-  <footer>
-    <div class="container footer-wrap">
-      <span>© <span id="year"></span> Jay Henderson</span>
-      <a href="#top">Back to top</a>
-    </div>
-  </footer>
-
-  <script>
-    const toggle = document.querySelector('.nav-toggle');
-    const navigation = document.querySelector('.nav-links');
-
-    toggle.addEventListener('click', () => {
-      const isOpen = navigation.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', String(isOpen));
-    });
-
-    navigation.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', () => {
-        navigation.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-      });
-    });
-
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
-</body>
+    <script src="./script.js" defer></script>
+  </body>
 </html>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
+  <title id="title">Zephyre Systems — Jay Henderson</title>
+  <desc id="description">Reliable systems, verifiable changes, recoverable operations.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071018"/>
+      <stop offset="1" stop-color="#050810"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#43e7ff"/>
+      <stop offset=".56" stop-color="#90bfff"/>
+      <stop offset="1" stop-color="#ff4fd8"/>
+    </linearGradient>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M42 0H0v42" fill="none" stroke="#43e7ff" stroke-opacity=".06"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#background)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <circle cx="1060" cy="70" r="320" fill="#ff4fd8" opacity=".06"/>
+  <circle cx="110" cy="80" r="280" fill="#43e7ff" opacity=".07"/>
+  <rect x="58" y="55" width="1084" height="520" rx="28" fill="none" stroke="#43e7ff" stroke-opacity=".28" stroke-width="2"/>
+  <text x="90" y="125" fill="#43e7ff" font-family="ui-monospace, monospace" font-size="26" font-weight="800" letter-spacing="5">ZEPHYRE</text>
+  <text x="272" y="125" fill="#f5f8fb" font-family="ui-monospace, monospace" font-size="26" font-weight="800" letter-spacing="5">SYSTEMS</text>
+  <text x="90" y="230" fill="#f5f8fb" font-family="Inter, Arial, sans-serif" font-size="68" font-weight="800">Reliable systems.</text>
+  <text x="90" y="315" fill="url(#accent)" font-family="Inter, Arial, sans-serif" font-size="68" font-weight="800">Verifiable changes.</text>
+  <text x="90" y="400" fill="#f5f8fb" font-family="Inter, Arial, sans-serif" font-size="68" font-weight="800">Recoverable operations.</text>
+  <text x="90" y="495" fill="#9aabba" font-family="ui-monospace, monospace" font-size="24">Jay Henderson · Infrastructure · Automation · Reliability</text>
+  <text x="90" y="540" fill="#ff4fd8" font-family="ui-monospace, monospace" font-size="22">Aspen // ZS</text>
+  <text x="1035" y="530" fill="#6fffa8" font-family="ui-monospace, monospace" font-size="22" text-anchor="end">STATUS : READY</text>
+</svg>

@@ -1,11 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="JH">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Zephyre Systems">
   <defs>
-    <linearGradient id="bg" x1="8" y1="6" x2="56" y2="58" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#38bdf8"/>
-      <stop offset="1" stop-color="#8b5cf6"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#102b3a"/>
+      <stop offset="1" stop-color="#130c20"/>
+    </linearGradient>
+    <linearGradient id="mark" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#43e7ff"/>
+      <stop offset="1" stop-color="#ff4fd8"/>
     </linearGradient>
   </defs>
-  <rect width="64" height="64" rx="16" fill="#090c14"/>
-  <rect x="3" y="3" width="58" height="58" rx="14" fill="url(#bg)"/>
-  <path fill="#090c14" d="M17 16h7v22c0 5.9-3.6 9.4-9.2 9.4-2.1 0-4-.5-5.8-1.4l2.2-5.5c1 .5 2 .8 3 .8 1.8 0 2.8-1.1 2.8-3.5V16Zm11 0h7v12h10V16h7v31h-7V34H35v13h-7V16Z"/>
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+  <rect x="1" y="1" width="62" height="62" rx="13" fill="none" stroke="#43e7ff" stroke-opacity=".45" stroke-width="2"/>
+  <path d="M15 18h23L24 32h20L26 48H14l14-14H10z" fill="url(#mark)"/>
+  <path d="M43 17h10v3H43zm0 8h10v3H43zm0 8h10v3H43zm0 8h10v3H43z" fill="#f5f8fb" opacity=".92"/>
 </svg>

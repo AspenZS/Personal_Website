@@ -1,0 +1,17 @@
+{
+  "name": "Jay Henderson — Zephyre Systems",
+  "short_name": "Zephyre Systems",
+  "description": "Infrastructure, automation, reliability, and recovery-focused technical work.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#071018",
+  "theme_color": "#071018",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

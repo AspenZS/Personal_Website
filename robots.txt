@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aspenzs.github.io/Personal_Website/sitemap.xml

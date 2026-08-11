@@ -1,44 +1,49 @@
-# Jay Henderson — Personal Website
+# Jay Henderson — Zephyre Systems portfolio
 
-A dependency-free static portfolio for Jay Henderson, focused on IT support, infrastructure, systems administration, and automation work.
+A dependency-free static portfolio for Jay Henderson, published under the maker identity
+**ZEPHYRE SYSTEMS / Aspen // ZS**.
 
 ## Live site
 
-The site is published with GitHub Pages from the repository's default branch:
+GitHub Pages serves the `main` branch as a project site:
 
-`https://jthenderson00.github.io/Personal_Website/`
+<https://aspenzs.github.io/Personal_Website/>
 
-## Files
+## Structure
 
-- `index.html` — complete responsive portfolio, styles, and minimal navigation JavaScript
-- `favicon.svg` — scalable JH favicon
-- `favicon.ico` — legacy browser fallback already present in the repository
+- `index.html` — semantic portfolio content, metadata, and structured data
+- `styles.css` — responsive Zephyre visual system
+- `script.js` — accessible mobile navigation and current-year behavior
+- `favicon.svg` — current Zephyre Systems mark
+- `social-card.svg` — social preview artwork
+- `manifest.webmanifest` — install and theme metadata
+- `404.html` — branded not-found page
+- `robots.txt` and `sitemap.xml` — discovery metadata
+- `scripts/validate-site.ps1` — local source, identity, asset, and link validation
 
-## Design goals
-
-- Recruiter-friendly overview with a clear contact path
-- Current, defensible project descriptions instead of unsupported metrics
-- Responsive layout with keyboard-accessible navigation
-- No build system or package dependencies
-- Relative asset paths so GitHub Pages project-site hosting works correctly
-- No external JavaScript or CSS dependencies
-
-## Deployment
-
-GitHub Pages serves the repository as a project site under `/Personal_Website/`. Asset references must remain relative, for example:
-
-```html
-<link rel="icon" href="./favicon.svg">
-```
-
-Avoid root-relative paths such as `/favicon.svg`, which point to the root of `jthenderson00.github.io` instead of this project directory.
+The legacy `favicon.ico` is retained only as repository history and is not referenced by the
+current release.
 
 ## Local preview
 
-From the repository directory:
+From this repository:
 
-```bash
+```powershell
 python -m http.server 8000
 ```
 
-Then open `http://localhost:8000/`.
+Then open <http://127.0.0.1:8000/>.
+
+## Validation
+
+```powershell
+pwsh -NoProfile -File .\scripts\validate-site.ps1
+```
+
+The validator checks required files and metadata, local assets, duplicate IDs, stale GitHub
+identity references, and prohibited legacy maker identities.
+
+## Deployment
+
+GitHub Pages publishes from `main` at the repository root. Assets intentionally use relative paths
+so local previews and project-site hosting behave consistently.
